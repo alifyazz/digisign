@@ -1,0 +1,92 @@
+/* ======= static/css/style.css ======= */
+
+/* Reset & Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #ffe4e1 0%, #fff0f5 100%);
+  color: #2c2c2c;   /* teks abu‐abu gelap */
+  display:flex; flex-direction:column; align-items:center;
+  padding:2rem 1rem; min-height:100vh; position:relative;
+}
+
+/* Waves SVG */
+#wave { position:absolute; top:0; left:0; width:100%; height:120px; z-index:-1; }
+
+/* Judul */
+.title {
+  font-size:1.75rem; font-weight:500;
+  margin:3rem 0 1rem; text-align:center;
+}
+
+/* Color picker section */
+.color-section {
+  margin-bottom:1rem;
+  display:flex; align-items:center; gap:0.75rem;
+  font-size:1rem;
+}
+.color-swatch {
+  width:1.5rem; height:1.5rem;
+  border:2px solid #ddd; border-radius:4px;
+  background:#000; cursor:pointer;
+}
+.color-hex {
+  font-family: monospace; color: #2c2c2c;
+}
+
+/* Canvas wrapper */
+#canvas-wrapper {
+  background:#fff;
+  border:2px solid #ffb6c1;
+  border-radius:6px;
+  overflow:hidden;
+  width:100%; max-width:600px;
+  aspect-ratio:5/2;
+  margin-bottom:1rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* Canvas full */
+#canvas { display:block; width:100% !important; height:100% !important; }
+
+/* Buttons */
+.btn {
+  font-family:inherit; font-size:1rem; padding:0.6rem 1.4rem;
+  border-radius:6px; cursor:pointer; transition: all 0.2s ease;
+  margin:0 0.5rem;
+  min-width:100px;
+}
+.btn-clear {
+  background:#fff;            /* putih penuh */
+  color:#ff6f91;              /* pastel pink lebih gelap */
+  border:2px solid #ff6f91;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+.btn-clear:hover {
+  background:#ffeff4;
+}
+.btn-save {
+  background:#ff6f91;          /* pastel pink yang lebih tegas */
+  color:#fff;
+  border:none;
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+.btn-save:hover {
+  background:#ff4e75;
+}
+
+/* Footer */
+footer {
+  margin-top:auto; padding:1rem 0;
+  font-size:0.9rem; color:#777; text-align:center;
+}
+
+/* Dekorasi Titik */
+.decoration {
+  position:absolute; width:8px; height:8px;
+  background:rgba(255,111,145,0.5); border-radius:50%;
+}
+.dec-1 { top:30%; left:10%; }
+.dec-2 { top:60%; left:85%; }
+.dec-3 { top:80%; left:40%; }

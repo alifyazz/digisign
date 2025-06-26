@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Signature</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Waves -->
+  <svg id="wave" viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path fill="#fff0f5" d="M0,32L1440,96L1440,0L0,0Z"></path>
+  </svg>
+
+  <!-- Dekorasi -->
+  <div class="decoration dec-1"></div>
+  <div class="decoration dec-2"></div>
+  <div class="decoration dec-3"></div>
+
+  <h1 class="title">Buat Tanda Tangan Digital dengan Mudah</h1>
+
+  <!-- Color Picker -->
+  <div class="color-section">
+    <label for="colorPicker">Warna Pena:</label>
+    <div id="colorSwatch" class="color-swatch"></div>
+    <span id="colorHex" class="color-hex">#000000</span>
+    <input type="color" id="colorPicker" value="#000000" style="display:none;">
+  </div>
+
+  <!-- Canvas -->
+  <div id="canvas-wrapper">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- Buttons -->
+  <div>
+    <button id="clearBtn" class="btn btn-clear">Hapus</button>
+    <button id="saveBtn"  class="btn btn-save">Simpan</button>
+  </div>
+
+  <!-- Form hidden -->
+  <form id="form" action="/save" method="post" style="display:none;">
+    <input type="hidden" name="signature" id="signature">
+  </form>
+
+  <!-- SignaturePad -->
+  <script src="/static/js/signature_pad.min.js"></script>
+  <script>
+    const canvas      = document.getElementById('canvas');
+    const wrapper     = document.getElementById('canvas-wrapper');
+    const clearBtn    = document.getElementById('clearBtn');
+    const saveBtn     = document.getElementById('saveBtn');
+    const form        = document.getElementById('form');
+    const sigInput    = document.getElementById('signature');
+    const colorPicker = document.getElementById('colorPicker');
+    const colorSwatch = document.getElementById('colorSwatch');
+    const colorHex    = document.getElementById('colorHex');
+
+    // Resize canvas sesuai wrapper & DPR
+    function resizeCanvas() {
+      const ratio = Math.max(window.devicePixelRatio||1,1);
+      canvas.width  = wrapper.clientWidth * ratio;
+      canvas.height = wrapper.clientHeight * ratio;
+      canvas.getContext('2d').scale(ratio, ratio);
+      pad.clear();
+    }
+    window.addEventListener('load',  resizeCanvas);
+    window.addEventListener('resize', resizeCanvas);
+
+    // Init SignaturePad
+    const pad = new SignaturePad(canvas, { penColor: colorPicker.value });
+
+    // Color picker logic
+    colorSwatch.onclick = () => colorPicker.click();
+    colorPicker.oninput = e => {
+      pad.penColor = e.target.value;
+      colorSwatch.style.background = e.target.value;
+      colorHex.textContent = e.target.value.toUpperCase();
+    };
+
+    // Tombol Hapus & Simpan
+    clearBtn.onclick = () => pad.clear();
+    saveBtn.onclick = () => {
+      if (pad.isEmpty()) {
+        return alert('Silakan gambar tanda tangan terlebih dahulu.');
+      }
+      const dataURL = pad.toDataURL('image/png');
+      // Untuk download
+      const downloadLink = document.getElementById('downloadLink');
+      downloadLink.href = dataURL;
+      downloadLink.download = 'tanda_tangan.png';
+      downloadLink.click();
+      // Jika tetap ingin mengirim ke server, jangan hapus kode berikut:
+      // sigInput.value = dataURL;
+      // form.submit();
+    };
+  </script>
+
+  <a id="downloadLink" style="display:none;"></a>
+
+  <footer>© 2025 TandaTangan.id</footer>
+</body>
+</html>
