@@ -1,3 +1,3 @@
-module github.com/username/online-signature
+module github.com/alifyazz/digisign
 
 go 1.24.4
